@@ -1,0 +1,19 @@
+# Build Artifacts
+build/
+bin/
+*.o
+*.a
+*.dSYM/
+
+# Model Weights & Data (downloaded via ./download_model.sh)
+models/*
+!models/.gitkeep
+*.bin
+*.json
+*.safetensors
+
+# OS & Temp Files
+.DS_Store
+Thumbs.db
+*.tmp
+*.log

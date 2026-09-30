@@ -1,0 +1,7 @@
+# Core inference dependencies
+torch>=2.0.0
+transformers>=4.40.0
+
+# Evaluation harness (EleutherAI LM Evaluation Harness)
+# Used by: tests/eval.py, benchmark_compressed.sh, benchmark_regular.sh
+lm-eval>=0.4.13

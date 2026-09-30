@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" width="100%" height="100%">
+<defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#0b0f19" />
+    </linearGradient>
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9" />
+    </linearGradient>
+    <linearGradient id="reg-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <linearGradient id="comp-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="badge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#065f46" stop-opacity="0.3" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 700; fill: #f8fafc; font-size: 20px; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 400; fill: #94a3b8; font-size: 13px; }
+    .stat-val { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 800; font-size: 20px; }
+    .stat-lbl { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 500; fill: #94a3b8; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 600; fill: #e2e8f0; font-size: 13px; }
+    .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 400; fill: #64748b; font-size: 11px; }
+    .val-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 600; font-size: 12px; }
+    .ret-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 11px; }
+    .legend-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 600; fill: #cbd5e1; font-size: 12px; }
+  </style>
+  <rect width="900" height="540" rx="16" fill="url(#bg-grad)" stroke="#1e293b" stroke-width="1.5" />
+  <text x="36" y="44" class="title">LLaMA-3.2 1B — Benchmark Accuracy &amp; Retention</text>
+  <text x="36" y="66" class="subtitle">EleutherAI LM Evaluation Harness (50 samples/task, 2,850 MMLU questions) • Native NEON vs BF16 Baseline</text>
+  <rect x="36" y="86" width="190" height="58" rx="10" fill="url(#card-grad)" stroke="#334155" stroke-width="1" filter="url(#glow)" />
+  <text x="50" y="114" class="stat-val" fill="#34d399">92.2%</text>
+  <text x="50" y="132" class="stat-lbl">Mean Accuracy Retention</text>
+  <rect x="244" y="86" width="190" height="58" rx="10" fill="url(#card-grad)" stroke="#334155" stroke-width="1" filter="url(#glow)" />
+  <text x="258" y="114" class="stat-val" fill="#38bdf8">72.8%</text>
+  <text x="258" y="132" class="stat-lbl">Model Compression</text>
+  <rect x="452" y="86" width="190" height="58" rx="10" fill="url(#card-grad)" stroke="#334155" stroke-width="1" filter="url(#glow)" />
+  <text x="466" y="114" class="stat-val" fill="#a78bfa">626 MB</text>
+  <text x="466" y="132" class="stat-lbl">Signed 4-Bit RAM Footprint</text>
+  <rect x="660" y="86" width="190" height="58" rx="10" fill="url(#card-grad)" stroke="#334155" stroke-width="1" filter="url(#glow)" />
+  <text x="674" y="114" class="stat-val" fill="#f59e0b">25+ tok/s</text>
+  <text x="674" y="132" class="stat-lbl">Pure C++ ARM NEON Speed</text>
+  <rect x="520" y="160" width="14" height="14" rx="4" fill="url(#reg-bar)" />
+  <text x="542" y="172" class="legend-text">Regular (BF16, ~2.3 GB)</text>
+  <rect x="710" y="160" width="14" height="14" rx="4" fill="url(#comp-bar)" />
+  <text x="732" y="172" class="legend-text">Signed 4-Bit (626 MB)</text>
+  <line x1="210.0" y1="185" x2="210.0" y2="490" stroke="#1e293b" stroke-dasharray="3,3" stroke-width="1" />
+  <text x="210.0" y="181" font-family="sans-serif" font-size="10" fill="#475569" text-anchor="middle">0%</text>
+  <line x1="325.0" y1="185" x2="325.0" y2="490" stroke="#1e293b" stroke-dasharray="3,3" stroke-width="1" />
+  <text x="325.0" y="181" font-family="sans-serif" font-size="10" fill="#475569" text-anchor="middle">25%</text>
+  <line x1="440.0" y1="185" x2="440.0" y2="490" stroke="#1e293b" stroke-dasharray="3,3" stroke-width="1" />
+  <text x="440.0" y="181" font-family="sans-serif" font-size="10" fill="#475569" text-anchor="middle">50%</text>
+  <line x1="555.0" y1="185" x2="555.0" y2="490" stroke="#1e293b" stroke-dasharray="3,3" stroke-width="1" />
+  <text x="555.0" y="181" font-family="sans-serif" font-size="10" fill="#475569" text-anchor="middle">75%</text>
+  <text x="36" y="211" class="label">ARC-Challenge</text>
+  <text x="36" y="225" class="sublabel">acc_norm (50 Qs)</text>
+  <rect x="210" y="199" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="217" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="199" width="147.20000000000002" height="14" rx="4" fill="url(#reg-bar)" />
+  <rect x="210" y="217" width="156.4" height="14" rx="4" fill="url(#comp-bar)" />
+  <text x="365.20000000000005" y="210" class="val-text" fill="#93c5fd">32.0%</text>
+  <text x="374.4" y="228" class="val-text" fill="#6ee7b7">34.0%</text>
+  <rect x="750" y="205" width="114" height="24" rx="12" fill="#064e3b" stroke="#059669" stroke-width="1" />
+  <text x="807.0" y="221" class="ret-text" fill="#34d399" text-anchor="middle">+2.0% gain</text>
+  <text x="36" y="261" class="label">HellaSwag</text>
+  <text x="36" y="275" class="sublabel">acc_norm (50 Qs)</text>
+  <rect x="210" y="249" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="267" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="249" width="312.8" height="14" rx="4" fill="url(#reg-bar)" />
+  <rect x="210" y="267" width="266.79999999999995" height="14" rx="4" fill="url(#comp-bar)" />
+  <text x="530.8" y="260" class="val-text" fill="#93c5fd">68.0%</text>
+  <text x="484.79999999999995" y="278" class="val-text" fill="#6ee7b7">58.0%</text>
+  <rect x="750" y="255" width="114" height="24" rx="12" fill="#362b0d" stroke="#d97706" stroke-width="1" />
+  <text x="807.0" y="271" class="ret-text" fill="#fbbf24" text-anchor="middle">85.3% recovery</text>
+  <text x="36" y="311" class="label">MMLU (Overall)</text>
+  <text x="36" y="325" class="sublabel">acc (2850 Qs)</text>
+  <rect x="210" y="299" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="317" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="299" width="228.206" height="14" rx="4" fill="url(#reg-bar)" />
+  <rect x="210" y="317" width="191.59" height="14" rx="4" fill="url(#comp-bar)" />
+  <text x="446.206" y="310" class="val-text" fill="#93c5fd">49.6%</text>
+  <text x="409.59000000000003" y="328" class="val-text" fill="#6ee7b7">41.6%</text>
+  <rect x="750" y="305" width="114" height="24" rx="12" fill="#362b0d" stroke="#d97706" stroke-width="1" />
+  <text x="807.0" y="321" class="ret-text" fill="#fbbf24" text-anchor="middle">84.0% recovery</text>
+  <text x="36" y="361" class="label">TruthfulQA</text>
+  <text x="36" y="375" class="sublabel">mc2 (50 Qs)</text>
+  <rect x="210" y="349" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="367" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="349" width="239.52200000000002" height="14" rx="4" fill="url(#reg-bar)" />
+  <rect x="210" y="367" width="223.652" height="14" rx="4" fill="url(#comp-bar)" />
+  <text x="457.52200000000005" y="360" class="val-text" fill="#93c5fd">52.1%</text>
+  <text x="441.652" y="378" class="val-text" fill="#6ee7b7">48.6%</text>
+  <rect x="750" y="355" width="114" height="24" rx="12" fill="#064e3b" stroke="#059669" stroke-width="1" />
+  <text x="807.0" y="371" class="ret-text" fill="#34d399" text-anchor="middle">93.4% recovery</text>
+  <text x="36" y="411" class="label">WinoGrande</text>
+  <text x="36" y="425" class="sublabel">acc (50 Qs)</text>
+  <rect x="210" y="399" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="417" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="399" width="285.2" height="14" rx="4" fill="url(#reg-bar)" />
+  <rect x="210" y="417" width="276.0" height="14" rx="4" fill="url(#comp-bar)" />
+  <text x="503.2" y="410" class="val-text" fill="#93c5fd">62.0%</text>
+  <text x="494.0" y="428" class="val-text" fill="#6ee7b7">60.0%</text>
+  <rect x="750" y="405" width="114" height="24" rx="12" fill="#064e3b" stroke="#059669" stroke-width="1" />
+  <text x="807.0" y="421" class="ret-text" fill="#34d399" text-anchor="middle">96.8% recovery</text>
+  <text x="36" y="461" class="label">GSM8K</text>
+  <text x="36" y="475" class="sublabel">exact_match (50 Qs)</text>
+  <rect x="210" y="449" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="467" width="460" height="14" rx="4" fill="#1e293b" opacity="0.6" />
+  <rect x="210" y="449" width="101.2" height="14" rx="4" fill="url(#reg-bar)" />
+  <rect x="210" y="467" width="46.0" height="14" rx="4" fill="url(#comp-bar)" />
+  <text x="319.2" y="460" class="val-text" fill="#93c5fd">22.0%</text>
+  <text x="264.0" y="478" class="val-text" fill="#6ee7b7">10.0%</text>
+  <rect x="750" y="455" width="114" height="24" rx="12" fill="#451a1a" stroke="#dc2626" stroke-width="1" />
+  <text x="807.0" y="471" class="ret-text" fill="#f87171" text-anchor="middle">45.5% recovery</text>
+  <text x="36" y="522" font-family="sans-serif" font-size="11" fill="#475569">Source: EleutherAI LM Evaluation Harness v0.4.7 • Generated from official run logs benchmark_regular_latest.log and benchmark_compressed_latest.log</text>
+</svg>

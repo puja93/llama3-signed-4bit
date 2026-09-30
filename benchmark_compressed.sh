@@ -1,7 +1,7 @@
 #!/bin/bash
 # ==============================================================================
 # Benchmark Script: LLaMA-3.2 Signed 4-Bit Native Engine (626 MB)
-# Runs the full EleutherAI / Hugging Face LM Evaluation Harness and redirects
+# Runs the full EleutherAI LM Evaluation Harness and redirects
 # all output logs and structured JSON metrics to tests/results/
 # ==============================================================================
 

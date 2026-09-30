@@ -14,26 +14,70 @@
 
 ---
 
-## Model Origin
+## ⚡ Quick Start: Chat in Seconds
+
+Get the signed 4-bit compressed model running interactively on your Mac with zero external dependencies:
+
+```bash
+# 1. Download model bundle (626 MB)
+./download_model.sh
+
+# 2. Build the native ARM NEON engine
+make
+
+# 3. Start chatting!
+./build/chat
+```
+
+- **Zero dependencies:** Pure C++20 with Apple Accelerate and ARM NEON SIMD. No PyTorch, Python, or GPU required.
+- **Fast generation:** Streams live at **~27.7 tok/s** on Apple Silicon CPU — faster than BF16 running on Apple MPS.
+- **Minimal RAM footprint:** Consumes only **~700 MB of RAM** in total during inference (zero weight expansion).
+
+<details>
+<summary>Alternative Ways to Chat (Python shell & BF16 baseline)</summary>
+
+#### Python Shell (`src/main.py`)
+Prefer a Python CLI? A thin ctypes wrapper calls the exact same compiled C++ engine with identical speed:
+```bash
+python3 src/main.py
+```
+
+#### Compare with Original BF16 Baseline (`chat.py`)
+Run the uncompressed 2.3 GB baseline model on Apple MPS to compare outputs side-by-side:
+```bash
+pip install -r requirements.txt
+python3 chat.py
+```
+*(Both frontends use the official LLaMA-3.2 Instruct chat template so conversation behavior is directly comparable).*
+
+</details>
+
+---
+
+## At a Glance: Compressed vs Original
+
+| Dimension | Original BF16 Baseline (`safetensors`) | Signed 4-Bit Engine (`llama3_signed_4bit_b128.bin`) | Advantage |
+| :--- | :---: | :---: | :---: |
+| **Model Size on Disk** | 2,300 MB (~2.3 GB) | **626 MB** | **72.8% smaller** |
+| **RAM Footprint** | ~2.5 GB | **~700 MB** *(zero weight expansion)* | **Runs on tight-memory devices** |
+| **Inference Speed** | ~16.9 tok/s (MPS GPU) | **~27.7 tok/s** (Pure CPU NEON) | **64% faster on CPU** |
+| **Dependencies** | Python, PyTorch, Transformers | **Zero (pure C++ binary)** | **Self-contained** |
+| **Accuracy Retention** | 100% | **92.2% mean retention** across 6 benchmarks | **Minimal quality trade-off** |
+
+---
+
+## Model & Quantization Overview
 
 - **Base Model:** [Meta Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) (16 Transformer layers, 2048 hidden dim, 32 attention heads, 128k vocabulary).
 - **Quantization:** Converted from official BF16 safetensors into a custom Block-128 affine format. Every 128 weights are stored as 4-bit unsigned nibbles (64 bytes) with 2-byte scale and 2-byte min offset (4.25 bits/weight effective).
+- **Kernel:** Factored GEMV arithmetic (`min * sum(x) + step * sum(q * x)`) with 4-row parallel ARM NEON vectorization and `mmap` zero-copy weight streaming.
 - **Hugging Face Hub:** Hosted at [`puja/llama3-zeromult-1b`](https://huggingface.co/puja/llama3-zeromult-1b).
 
 ---
 
-## Key Features
+## Benchmark Results & Evaluation
 
-- **626 MB Model Footprint**: Compact affine min-max quantization format with zero weight expansion in RAM (down from ~2.3 GB BF16).
-- **25+ Tokens/Sec**: Factored GEMV arithmetic (`min * sum(x) + step * sum(q * x)`) with 4-row parallel ARM NEON vectorization — **27.7 tok/s measured** on Apple M-series, faster than BF16 on MPS.
-- **Zero Dependencies**: Pure C++20 with Apple Accelerate/NEON and `mmap` zero-copy weight streaming.
-- **High Fidelity**: Retains **92.2% mean accuracy** across standard Open LLM Leaderboard benchmarks and >0.993 cosine similarity to full precision.
-
----
-
-## Benchmark Results & Performance Evaluation
-
-Both models were comprehensively benchmarked side-by-side using the official **EleutherAI LM Evaluation Harness (`lm-eval` v0.4.13)** on Apple Silicon. The evaluation covers **3,100 questions** across 6 standard suites, including all 57 academic subjects of MMLU.
+Both models were comprehensively benchmarked side-by-side using the official **EleutherAI LM Evaluation Harness (`lm-eval` v0.4.13)** on Apple Silicon across **3,100 questions** in 6 standard suites, including all 57 academic subjects of MMLU.
 
 ### Overall Benchmark Accuracy & Retention
 
@@ -57,8 +101,6 @@ Both models were comprehensively benchmarked side-by-side using the official **E
 > - Signed 4-Bit run: [`tests/results/benchmark_compressed_latest.log`](tests/results/benchmark_compressed_latest.log) / [`.json`](tests/results/benchmark_compressed_latest.json)
 > - Regular BF16 run: [`tests/results/benchmark_regular_latest.log`](tests/results/benchmark_regular_latest.log) / [`.json`](tests/results/benchmark_regular_latest.json)
 
----
-
 ### MMLU 57-Subject Category Breakdown
 
 MMLU was evaluated across all 57 individual academic subjects with 50 samples per subject (2,850 total questions) under standard 5-shot loglikelihood scoring:
@@ -77,88 +119,21 @@ MMLU was evaluated across all 57 individual academic subjects with 50 samples pe
 
 ---
 
-### Efficiency & Footprint Comparison
+## Reproducing Benchmarks & Tests
 
-| Dimension | Original BF16 (`model.safetensors`) | Signed 4-Bit Block-128 (`llama3_signed_4bit_b128.bin`) | Advantage |
-| :--- | :---: | :---: | :---: |
-| **Model Size on Disk** | 2,300 MB (~2.3 GB) | **626 MB** | **72.8% smaller** |
-| **Effective Bits/Weight** | 16.00 bits | **4.25 bits** | **3.76x compression** |
-| **RAM Footprint in Inference** | ~2.5 GB | **~700 MB** *(zero weight expansion)* | **Runs on tight-memory devices** |
-| **Execution Kernel** | PyTorch MPS / Metal | **Hand-tuned ARM NEON SIMD** | **Zero framework dependency** |
-| **Inference Throughput** | ~16.9 tok/s (MPS) | **~27.7 tok/s** (Pure CPU NEON) | **Signed 4-Bit is faster than BF16 MPS** |
+To run unit tests or replicate the benchmark evaluations locally:
 
----
-
-## Quick Start
-
-### Prerequisites
-
-- **Apple Silicon Mac** (M1 or later) — required for ARM NEON SIMD kernel
-- **Xcode Command Line Tools**: `xcode-select --install`
-- **Python 3.10+** with evaluation dependencies:
-  ```bash
-  pip install -r requirements.txt
-  ```
-
-### 1. Download Model Bundle
-Download the signed 4-bit model directly from Hugging Face:
 ```bash
-./download_model.sh
-```
-Or manually fetch the files into `./models/`:
-- **Model (626 MB)**: [llama3_signed_4bit_b128.bin](https://huggingface.co/puja/llama3-zeromult-1b/resolve/main/models/llama3_signed_4bit_b128.bin)
-- **Tokenizer**: [tokenizer.json](https://huggingface.co/puja/llama3-zeromult-1b/resolve/main/models/tokenizer.json)
-
-### 2. Build Engine
-Compile the native ARM NEON inference binary:
-```bash
-make
-```
-
-### 3. Run Interactive Chat
-
-You can run an interactive chat session with either model and compare them side by side.
-
-#### Signed 4-Bit Compressed Engine (626 MB) — Native ARM NEON
-
-Run the C++ binary directly:
-```bash
-./build/chat
-```
-Or via the Python frontend (auto-compiles the engine if needed):
-```bash
-python3 src/main.py
-```
-Both stream tokens live to your terminal at ~25 tok/s, entirely CPU-bound with no PyTorch or GPU dependency.
-
-#### Original BF16 Baseline (~2.3 GB) — Hugging Face / MPS
-
-Run the reference HuggingFace pipeline using Apple MPS acceleration:
-```bash
-python3 chat.py
-```
-Requires `model.safetensors` in `./models/` (downloaded by `./download_model.sh` alongside the 4-bit weights).
-
-> Both chat frontends use the same **LLaMA-3.2 Instruct chat template** (`<|begin_of_text|>`, system prompt, user/assistant turns) so the conversation behaviour is directly comparable.
-
-
-### 4. Run Verification & Unit Tests
-```bash
+# 1. Run unit tests and engine integrity checks
 make test
-```
-Verifies engine tensor dimensions, tokenizer round-trip integrity, logits validity, prefill performance, and LM Evaluation Harness adapter compatibility.
 
-### 5. Run Official Benchmarks (EleutherAI / Hugging Face Harness)
-Evaluate on the standard Open LLM Leaderboard suite (`arc_challenge`, `hellaswag`, `mmlu`, `truthfulqa_mc2`, `winogrande`, `gsm8k`):
-
-```bash
-# 1. Benchmark Signed 4-Bit Native Engine (626 MB)
+# 2. Benchmark Signed 4-Bit Native Engine (626 MB)
 ./benchmark_compressed.sh
 
-# 2. Benchmark Original Regular Model (BF16 model.safetensors, ~2.3 GB)
+# 3. Benchmark Original Regular Model (BF16 model.safetensors, ~2.3 GB)
 ./benchmark_regular.sh
 
-# 3. Generate side-by-side comparison report & accuracy retention
+# 4. Generate side-by-side comparison report & accuracy retention
 python3 tests/compare_results.py
 ```
 *(Benchmark runs log console output and save structured JSON metrics directly to `tests/results/`)*.
@@ -166,6 +141,9 @@ python3 tests/compare_results.py
 ---
 
 ## Repository Structure
+
+<details>
+<summary>Click to expand</summary>
 
 ```
 llama3-signed-4bit/
@@ -183,9 +161,9 @@ llama3-signed-4bit/
 │   ├── llama_engine.h             # Clean C API header for engine & tokenizer
 │   ├── llama_engine.cpp           # Core engine: ARM NEON factored GEMV & SwiGLU
 │   ├── main.cpp                   # C++ CLI chat frontend
-│   └── main.py                    # Python CLI chat frontend via ctypes (~25 tok/s)
+│   └── main.py                    # Thin Python shell over llama_engine via ctypes
 └── tests/
-    ├── eval.py                    # EleutherAI/Hugging Face harness evaluation CLI
+    ├── eval.py                    # EleutherAI LM Evaluation Harness CLI
     ├── lm_eval_adapter.py         # lm-evaluation-harness bridge for native engine
     ├── test_engine.py             # Unit and integration test suite (make test)
     ├── compare_results.py         # Comparative analysis tool & retention calculator
@@ -196,9 +174,10 @@ llama3-signed-4bit/
         └── benchmark_regular_latest.log
 ```
 
+</details>
+
 ---
 
 ## License
 
-MIT License.
-Base model weights are subject to the [Meta Llama 3.2 Community License](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct).
+MIT

@@ -1,7 +1,7 @@
 #!/bin/bash
 # ==============================================================================
 # Benchmark Script: Original LLaMA-3.2-1B Unquantized Baseline (BF16, 2.3 GB)
-# Runs the full EleutherAI / Hugging Face LM Evaluation Harness and redirects
+# Runs the full EleutherAI LM Evaluation Harness and redirects
 # all output logs and structured JSON metrics to tests/results/
 # ==============================================================================
 

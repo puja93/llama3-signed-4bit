@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 EleutherAI lm-evaluation-harness Model Adapter for LLaMA 3 Signed 4-Bit Apple Silicon Engine.
-Enables running official Hugging Face Open LLM Leaderboard benchmarks.
+Enables running official Open LLM Leaderboard benchmarks.
 """
 
 import sys

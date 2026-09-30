@@ -3,7 +3,7 @@
 CLI Evaluation Runner using EleutherAI lm-evaluation-harness.
 Supports evaluating:
 1. Native Signed 4-Bit ARM NEON SIMD Engine (Signed4BitLM)
-2. Original LLaMA-3.2-1B (BF16 model.safetensors via Hugging Face HFLM)
+2. Original LLaMA-3.2-1B (BF16 model.safetensors baseline)
 3. Head-to-head comparison ('both') with automated accuracy retention calculation.
 """
 
@@ -73,7 +73,7 @@ def parse_args():
         "--models_dir",
         type=str,
         default=str(ROOT_DIR / "models"),
-        help="Directory containing config.json and model.safetensors for HF model",
+        help="Directory containing config.json and model.safetensors for baseline model",
     )
     parser.add_argument(
         "--tokenizer_path",
@@ -85,7 +85,7 @@ def parse_args():
         "--hf_device",
         type=str,
         default="mps" if torch.backends.mps.is_available() else "cpu",
-        help="Device for Hugging Face model evaluation (mps, cuda, or cpu)",
+        help="Device for baseline model evaluation (mps, cuda, or cpu)",
     )
     parser.add_argument(
         "--output_json",
@@ -202,7 +202,7 @@ def main():
     task_list = [t.strip() for t in args.tasks.split(",") if t.strip()]
 
     print("\033[1;36m================================================================================")
-    print("  LLaMA-3.2 1B - ELEUTHERAI / HUGGING FACE LM EVALUATION HARNESS")
+    print("  LLaMA-3.2 1B - ELEUTHERAI LM EVALUATION HARNESS")
     print(f"  Target: {args.model_type.upper()}")
     print(f"  Tasks: {', '.join(task_list)}")
     print(f"  Limit per task: {args.limit if args.limit else 'Full Benchmark'}")
@@ -224,7 +224,7 @@ def main():
             device=args.hf_device,
             batch_size=1,
         )
-        print(f" • HF Model ready in {time.time() - t0:.2f}s. Evaluating...")
+        print(f" • Baseline Model ready in {time.time() - t0:.2f}s. Evaluating...")
         hf_results = run_eval_for_model(hf_model, task_list, args.limit, args.num_fewshot)
         all_output_data["original_1b_bf16"] = hf_results.to_dict() if hasattr(hf_results, "to_dict") else hf_results
 

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360">
+<defs>
+<style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 20px; font-weight: 700; fill: #111827; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 400; fill: #6b7280; }
+      .cat-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13.5px; font-weight: 700; fill: #111827; }
+      .cat-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 400; fill: #9ca3af; }
+      .model-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11.5px; font-weight: 500; fill: #4b5563; }
+      .score { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 11.5px; font-weight: 600; fill: #111827; }
+      .badge-main { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 600; }
+    </style>
+</defs>
+<rect width="880" height="360" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+<text x="36" y="38" class="title">MMLU 57-Subject Category Breakdown</text>
+<text x="440" y="38" class="subtitle">5-shot loglikelihood evaluation · 2,850 total questions</text>
+<line x1="36" y1="52" x2="844" y2="52" stroke="#e5e7eb" stroke-width="1"/>
+<text x="36" y="84" class="cat-title">STEM</text>
+<text x="36" y="99" class="cat-desc">Physics, CS, Math, Bio (950 Qs)</text>
+<circle cx="210" cy="80" r="3.5" fill="#0066ff"/>
+<text x="220" y="83.5" class="model-label">Signed 4-Bit</text>
+<circle cx="210" cy="98" r="3.5" fill="#9ca3af"/>
+<text x="220" y="101.5" class="model-label">BF16 Baseline</text>
+<rect x="310" y="74" width="192" height="11" rx="5.5" fill="#0066ff"/>
+<text x="510" y="83.5" class="score">36.74%</text>
+<rect x="310" y="92" width="224" height="11" rx="5.5" fill="#e5e7eb"/>
+<text x="542" y="101.5" class="score">42.95%</text>
+<rect x="760" y="79" width="84" height="20" rx="10" fill="#f3f4f6"/>
+<text x="802" y="93" text-anchor="middle" class="badge-main" fill="#374151">85.5% ret</text>
+<line x1="36" y1="120" x2="844" y2="120" stroke="#f3f4f6" stroke-width="1"/>
+<text x="36" y="139" class="cat-title">Humanities</text>
+<text x="36" y="154" class="cat-desc">History, Law, Arts, Phil (650 Qs)</text>
+<circle cx="210" cy="135" r="3.5" fill="#0066ff"/>
+<text x="220" y="138.5" class="model-label">Signed 4-Bit</text>
+<circle cx="210" cy="153" r="3.5" fill="#9ca3af"/>
+<text x="220" y="156.5" class="model-label">BF16 Baseline</text>
+<rect x="310" y="129" width="230" height="11" rx="5.5" fill="#0066ff"/>
+<text x="548" y="138.5" class="score">44.00%</text>
+<rect x="310" y="147" width="286" height="11" rx="5.5" fill="#e5e7eb"/>
+<text x="604" y="156.5" class="score">54.77%</text>
+<rect x="760" y="134" width="84" height="20" rx="10" fill="#f3f4f6"/>
+<text x="802" y="148" text-anchor="middle" class="badge-main" fill="#374151">80.3% ret</text>
+<line x1="36" y1="175" x2="844" y2="175" stroke="#f3f4f6" stroke-width="1"/>
+<text x="36" y="194" class="cat-title">Social Sciences</text>
+<text x="36" y="209" class="cat-desc">Economics, Politics (600 Qs)</text>
+<circle cx="210" cy="190" r="3.5" fill="#0066ff"/>
+<text x="220" y="193.5" class="model-label">Signed 4-Bit</text>
+<circle cx="210" cy="208" r="3.5" fill="#9ca3af"/>
+<text x="220" y="211.5" class="model-label">BF16 Baseline</text>
+<rect x="310" y="184" width="242" height="11" rx="5.5" fill="#0066ff"/>
+<text x="560" y="193.5" class="score">46.33%</text>
+<rect x="310" y="202" width="284" height="11" rx="5.5" fill="#e5e7eb"/>
+<text x="602" y="211.5" class="score">54.33%</text>
+<rect x="760" y="189" width="84" height="20" rx="10" fill="#f3f4f6"/>
+<text x="802" y="203" text-anchor="middle" class="badge-main" fill="#374151">85.3% ret</text>
+<line x1="36" y1="230" x2="844" y2="230" stroke="#f3f4f6" stroke-width="1"/>
+<text x="36" y="249" class="cat-title">Other / Applied</text>
+<text x="36" y="264" class="cat-desc">Business, Medicine (650 Qs)</text>
+<circle cx="210" cy="245" r="3.5" fill="#0066ff"/>
+<text x="220" y="248.5" class="model-label">Signed 4-Bit</text>
+<circle cx="210" cy="263" r="3.5" fill="#9ca3af"/>
+<text x="220" y="266.5" class="model-label">BF16 Baseline</text>
+<rect x="310" y="239" width="220" height="11" rx="5.5" fill="#0066ff"/>
+<text x="538" y="248.5" class="score">42.15%</text>
+<rect x="310" y="257" width="260" height="11" rx="5.5" fill="#e5e7eb"/>
+<text x="578" y="266.5" class="score">49.85%</text>
+<rect x="760" y="244" width="84" height="20" rx="10" fill="#f3f4f6"/>
+<text x="802" y="258" text-anchor="middle" class="badge-main" fill="#374151">84.6% ret</text>
+<line x1="36" y1="285" x2="844" y2="285" stroke="#f3f4f6" stroke-width="1"/>
+<text x="36" y="304" class="cat-title">Total MMLU</text>
+<text x="36" y="319" class="cat-desc">57 Subjects (2,850 Qs)</text>
+<circle cx="210" cy="300" r="3.5" fill="#0066ff"/>
+<text x="220" y="303.5" class="model-label">Signed 4-Bit</text>
+<circle cx="210" cy="318" r="3.5" fill="#9ca3af"/>
+<text x="220" y="321.5" class="model-label">BF16 Baseline</text>
+<rect x="310" y="294" width="217" height="11" rx="5.5" fill="#0066ff"/>
+<text x="535" y="303.5" class="score">41.65%</text>
+<rect x="310" y="312" width="259" height="11" rx="5.5" fill="#e5e7eb"/>
+<text x="577" y="321.5" class="score">49.61%</text>
+<rect x="760" y="299" width="84" height="20" rx="10" fill="#eff6ff"/>
+<text x="802" y="313" text-anchor="middle" class="badge-main" fill="#0066ff">84.0% ret</text>
+<line x1="36" y1="286" x2="844" y2="286" stroke="#e5e7eb" stroke-width="1.5"/>
+</svg>

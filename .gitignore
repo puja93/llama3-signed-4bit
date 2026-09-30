@@ -8,12 +8,18 @@ bin/
 # Model Weights & Data (downloaded via ./download_model.sh)
 models/*
 !models/.gitkeep
+!models/config.json
+!models/tokenizer_config.json
 *.bin
-*.json
 *.safetensors
+
+# Benchmark Result Logs & JSONs (large, machine-generated — opt-in via git add -f)
+tests/results/*.log
+tests/results/*.json
 
 # OS & Temp Files
 .DS_Store
 Thumbs.db
 *.tmp
-*.log
+__pycache__/
+*.pyc

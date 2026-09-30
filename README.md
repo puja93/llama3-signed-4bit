@@ -85,7 +85,8 @@ Both models were comprehensively benchmarked side-by-side using the official **E
   <img src="assets/benchmark_comparison.svg" alt="Benchmark Comparison: Llama3.2-1B BF16 vs Signed 4-Bit" width="100%">
 </p>
 
-### Head-to-Head Benchmark Scores
+<details>
+<summary><b>View detailed benchmark scores table & log sources</b></summary>
 
 | Benchmark Task | Target Metric | Evaluated Qs | Regular Baseline (BF16, 2.3 GB) | Signed 4-Bit (626 MB) | Delta (Δ) | Accuracy Retention |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -101,6 +102,8 @@ Both models were comprehensively benchmarked side-by-side using the official **E
 > - Signed 4-Bit run: [`tests/results/benchmark_compressed_latest.log`](tests/results/benchmark_compressed_latest.log) / [`.json`](tests/results/benchmark_compressed_latest.json)
 > - Regular BF16 run: [`tests/results/benchmark_regular_latest.log`](tests/results/benchmark_regular_latest.log) / [`.json`](tests/results/benchmark_regular_latest.json)
 
+</details>
+
 ### MMLU 57-Subject Category Breakdown
 
 MMLU was evaluated across all 57 individual academic subjects with 50 samples per subject (2,850 total questions) under standard 5-shot loglikelihood scoring:
@@ -109,6 +112,9 @@ MMLU was evaluated across all 57 individual academic subjects with 50 samples pe
   <img src="assets/mmlu_breakdown.svg" alt="MMLU Subject Breakdown by Category" width="100%">
 </p>
 
+<details>
+<summary><b>View detailed MMLU category breakdown table</b></summary>
+
 | Category | Subjects Included | Questions | Regular (BF16 Baseline) | Signed 4-Bit Engine | Recovery Rate |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | **STEM** | Physics, Chemistry, Math, CS, Biology, Engineering | 950 | 42.95% | **36.74%** | **85.5%** |
@@ -116,6 +122,8 @@ MMLU was evaluated across all 57 individual academic subjects with 50 samples pe
 | **Social Sciences** | Economics, Politics, Psychology, Sociology, Geography | 600 | 54.33% | **46.33%** | **85.3%** |
 | **Other / Applied** | Business, Management, Medicine, Marketing, Accounting | 650 | 49.85% | **42.15%** | **84.6%** |
 | **Total MMLU** | **All 57 Academic Subjects Combined** | **2,850** | **49.61%** | **41.65%** | **84.0%** |
+
+</details>
 
 ---
 
